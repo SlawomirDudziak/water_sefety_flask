@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block content %}
+	
+	<br><br>
+		
+	<form enctype="multipart/form-data" action="{{ url_for('upload') }}" method="POST"  >
+		<div class="input-group mb-3">
+		  <div class="custom-file" >
+			<input type="file" class="custom-file-input" name="file">
+			<label class="custom-file-label" for="file">Choose file</label>
+		  </div>
+		  </div>
+		  <br>
+		  
+		  <button type="submit" class="btn btn-dark btn-lg btn-block" disabled>Upload on server</button>
+		
+	</form>
+	
+	<br>
+		{% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+		{% endwith %}
+	
+{% endblock content %}

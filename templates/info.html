@@ -1,0 +1,109 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<br><br>
+
+<div class="row">
+	<div class="col-lg-6 col-md-6">
+	
+		<form enctype="multipart/form-data" action="{{ url_for('choose') }}" method="POST">
+			<label for="network"> Choose network </label>
+			<select class="form-control" name="network">
+			{% for file in files %}
+				<option value="{{ file }}">{{ file }}</option>
+			{% endfor %}
+			</select>
+			<br>
+			<button type="submit" class="btn btn-dark btn-lg btn-block">Show</button>
+		</form>
+		
+		<br>
+		{% with messages = get_flashed_messages(with_categories=true) %}
+		{% if messages %}
+		  {% for category, message in messages %}
+			<div class="alert alert-{{ category }}">
+			  {{ message }}
+			</div>
+		  {% endfor %}
+		{% endif %}
+	{% endwith %}
+	
+	{% if table=='nodes' %}
+	<div id="slider">
+		<img src="{{url_for('static',filename='networks_info/' +det+ 'nodes.png') }}" alt="{{det}}"/>
+	</div>
+	
+	{% else %}
+	<div id="slider">
+		<img src="{{url_for('static',filename='networks_info/' +det+ 'links.png') }}" alt="{{det}}"/>
+	</div>
+	{% endif %}
+	
+	</div>
+	
+	<div class="col-lg-6 col-md-6">
+	<div style="font-size:20px;"><b>Selected: {{ table }}</b></div>
+	<nav class="navbar navbar-light bg-light">
+		<a class="navbar-brand" href="/info">Pumps</a>
+		<a class="navbar-brand" href="/tanksinfo">Tanks</a>
+		<a class="navbar-brand" href="/pipesinfo">Pipes</a>
+		<a class="navbar-brand" href="/nodesinfo">Nodes</a>
+	</nav>
+	
+	<table id="example" class="display" style="width:100%">
+		<thead>
+			<tr>
+			{% if table=='pumps' %}
+				<th>id</th>
+				<th>pump name</th>
+				<th>start node</th>
+				<th>end node</th>
+				<th>status</th>
+			{% elif table=='tanks' %}
+				<th>id</th>
+				<th>tank name</th>
+				<th>max level [m]</th>
+				<th>actual level [m]</th>
+			{% elif table=='nodes' %}
+				<th>id</th>
+				<th>node name</th>
+				<th>node type</th>
+			{% elif table=='pipes' %}
+				<th>id</th>
+				<th>pipe name</th>
+				<th>start node</th>
+				<th>end node</th>
+				<th>length [m]</th>
+				<th>diameter [m]</th>
+				<th>status</th>
+			{% endif %}
+			</tr>
+		</thead>
+		<tbody>
+		{% if data %}
+			{% for d in data %}
+			<tr>
+				<td>{{ d[0] }}</td>
+				<td>{{d [1] }}</td>
+				<td>{{d [2] }}</td>
+				{% if d[3] %}
+				<td>{{d [3] }}</td>
+				{% endif %}
+				{% if d[4] %}
+				<td>{{d[4]}}</td>
+				{% endif %}
+				{% if d[5] %}
+				<td>{{d[5]}}</td>
+				{% endif %}
+				{% if d[6] %}
+				<td>{{d[6]}}</td>
+				{% endif %}
+			</tr>
+			{% endfor %}
+		{% endif %}
+		</tbody>
+	</table>
+	</div>
+</div>
+	
+{% endblock content %}

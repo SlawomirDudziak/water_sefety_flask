@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row">
+	<div class="col-lg-6 col-md-6">
+	<br><br><br><br><br>
+	
+	{% if nnodes=='true' %}
+	<div id="slider">
+		<img src="{{url_for('static',filename='networks_info/' +det+ 'nodes.png') }}" alt="{{ det }}" />
+	</div>
+	{% else %}
+	<div id="slider">
+		<img src="{{url_for('static',filename='networks_info/' +det+ 'links.png') }}" alt="{{ det }}" />
+	</div>
+	{% endif %}
+	
+		<div id="buttonsss" style="margin-top:10px;">
+			<a href="/report-links"><button type="button" class="btn btn-dark btn-lg" style="width:47%; float:left;">Links</button></a>
+			<a href="/report-nodes"><button type="button" class="btn btn-dark btn-lg" style="width:47%; float:right;">Nodes</button></a>
+		</div>
+	</div>
+	
+	
+	<div class="col-lg-6 col-md-6">
+	<br><br>
+	
+	<table id="example" class="display" style="width:100%">
+	<thead>
+		<tr>
+		<th>time [h]</th>
+		<th>links to close</th>
+		<th>poisoned nodes</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for r in report %}
+			{% if r[1] != '[]' %}
+			<tr>
+				<td>{{ r[0]/3600 }}</td>
+				
+				<td>
+				{% for i in r[1] %}
+					{% if i !='u' %}
+						{{i}}
+					{% endif %}
+				{% endfor %}
+				</td>
+				
+				{% if r[2] != '[]' %}
+					<td>
+					{% for i in r[2] %}
+					{% if i !='u' %}
+						{{i}}
+					{% endif %}
+				{% endfor %}
+					</td>
+				{% else %}
+					<td></td>
+				{% endif %}
+			</tr>
+			{% endif %}
+		{% endfor %}
+	</tbody>
+	</table>
+		
+	</div>	
+</div>
+{% endblock content %}

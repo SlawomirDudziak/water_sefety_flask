@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block content %}
+	<br><br>
+	Selected: {{ net }} 
+	
+	<form enctype="multipart/form-data" action="{{ url_for('run_sim') }}" method="POST">
+		<br>
+		<label for="junction"> Choose junction </label>
+		<select class="form-control" name="junction">
+			{% for j in junc %}
+				<option value="{{ j }}">{{ j }}</option>
+			{% endfor %}
+		</select>
+		<br>
+		
+		<label for="sim_time" class="form-label">Simulation time</label>
+		
+		<input class="form-control" type="number" value="7" name="sim_time">
+		<br>
+		
+		<label for="poison_hour" class="form-label">Poison hour</label>
+		<input class="form-control" type="number" value="0" name="poison_hour">
+		<br>
+		
+		<button type="submit" class="btn btn-dark btn-lg btn-block" disabled>Start simulation</button>
+	</form>
+	
+	<br>
+	
+	
+			{% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+		{% endwith %}
+{% endblock content %}

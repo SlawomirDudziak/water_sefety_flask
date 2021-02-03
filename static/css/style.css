@@ -1,0 +1,44 @@
+body
+{
+	/*background-image: url(img/woda.jpg);*/
+	background-color:#20B2AA;
+	/*color: #555555;*/
+	font-family:'Inconsolata';
+	/*font-size:14px;*/
+	/*text-align: center;*/
+}
+h1
+{
+	margin:15px;
+	font-size:28px;
+}
+.container
+{
+	
+}
+.website
+{
+	text-align:center;
+}
+.website img
+{
+	width: 100%;
+	height: auto;
+	/* min-height: 405px; */
+}
+.website figcaption
+{
+	font-size: 20px;
+}
+.table
+{
+	font-size: 14px;
+}
+#buttonlist
+{
+	
+}
+#slider
+{
+	min-height: 405px;
+}

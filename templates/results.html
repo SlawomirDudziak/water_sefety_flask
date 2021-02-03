@@ -1,0 +1,113 @@
+{% extends "layout.html" %}
+{% block content %}
+	<div class="row">
+		<div class="col-lg-6 col-md-6">
+			<br><br>
+			<div id="slider">
+				<img src="{{url_for('static',filename='img/chart' +numer+ '.png') }}" alt="chart.png" />
+			</div>
+			
+			<div id="buttonsss" style="margin-top:10px;">
+				<a href="#"><button type="button" onclick="changeSlide('previous')" class="btn btn-dark btn-lg" style="width:47%; float:left;">Back</button></a>
+				<a href="#"><button type="button" onclick="changeSlide('next')" class="btn btn-dark btn-lg" style="width:47%; float:right;">Next</button></a>
+			</div>
+			
+			<div id="legend" style="margin-top:20px;">
+			<br/><br/>
+			<div id="legend1" style="float:left;text-align:left;"><b>Legend<br></div>
+			<div style="clear:both;"></div>
+			<div style="float:left;text-align:left;"><p>First axis (0-1) presents state of bolts in pipes,
+				where 1-bolt open, 0-closed. Second axis shows amount of chlorine in node (0-1000).</b></p>
+			</div>
+			</div>
+		</div>
+		
+		<div class="col-lg-6 col-md-6">
+		<br>
+			<div style="font-size:20px;"><b>Selected: {{ table }} </b></div>
+		
+			<nav class="navbar navbar-light bg-light" >
+				<a class="navbar-brand" style="font-size:16px;" href="/results"><b>Pumps</b></a>
+				<a class="navbar-brand" style="font-size:16px;" href="/tanks-sim"><b>Tanks</b></a>
+				<a class="navbar-brand" style="font-size:16px;" href="/pipes-sim"><b>Pipes</b></a>
+				<a class="navbar-brand" style="font-size:16px;" href="/junctions-sim"><b>Junctions</b></a>
+			</nav>
+			
+			<table id="example" class="display" style="width:100%">
+				<thead>
+					<tr>
+					{% if table=='pumps sim' %}
+						<th>time [h]</th>
+						<th>pump name</th>
+						<th>status [0/1]</th>
+						<th>pump headloss [m]</th>
+						<th>pump flowrate [m3/s]</th>
+					{% elif table=='tanks sim' %}
+						<th>time [h]</th>
+						<th>tank name</th>
+						<th>actual level [m3]</th>
+					{% elif table=='junctions sim' %}
+						<th>time [h]</th>
+						<th>junction name</th>
+						<th>cal concentration [mg/l]</th>
+						<th>demand [m3/s]</th>
+						<th>pressure [bar]</th>
+						<th>head [m]</th>
+					{% elif table=='pipes sim' %}
+						<th>time [h]</th>
+						<th>pipe name</th>
+						<th>status [0/1]</th>
+						<th>velocity [m/s]</th>
+						<th>pipe headloss [m]</th>
+						<th>pipe flowrate [m3/s]</th>
+					{% endif %}
+					</tr>
+				</thead>
+				<tbody>
+					{%if table=='pumps sim' %}
+						{% for d in data2 %}
+						<tr>
+							<td>{{ d[0]/3600 }}</td>
+							<td>{{d[1]}}</td>
+							<td>{{d[2]}}</td>
+							<td>{{d[3]}}</td>
+							<td>{{d[4]}}</td>
+						</tr>
+						{% endfor %}
+					{% elif table=='tanks sim' %}
+						{% for d in data2 %}
+						<tr>
+							<td>{{ d[0]/3600 }}</td>
+							<td>{{d[1]}}</td>
+							<td>{{d[2]}}</td>
+						</tr>
+						{% endfor %}
+					{% elif table=='junctions sim' %}
+						{% for d in data2 %}
+						<tr>
+							<td>{{ d[0]/3600 }}</td>
+							<td>{{d[1]}}</td>
+							<td>{{d[2]}}</td>
+							<td>{{d[3]}}</td>
+							<td>{{d[4]}}</td>
+							<td>{{d[5]}}</td>
+						</tr>
+						{% endfor %}	
+					{% elif table=='pipes sim' %}
+						{% for d in data2 %}
+						<tr>
+							<td>{{ d[0]/3600 }}</td>
+							<td>{{d[1]}}</td>
+							<td>{{d[2]}}</td>
+							<td>{{d[3]}}</td>
+							<td>{{d[4]}}</td>
+							<td>{{d[5]}}</td>
+						</tr>
+						{% endfor %}
+					{% endif %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+{% endblock content %}

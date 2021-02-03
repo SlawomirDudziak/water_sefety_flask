@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+	<br>
+	
+	<a class="btn btn-dark btn-lg" href="/simulation" role="button">Poison</a>
+	<button type="button" class="btn btn-lg btn-secondary" disabled>Leak</button>
+	
+	<br><br>
+	
+	<form enctype="multipart/form-data" action="{{ url_for('leak_sim') }}" method="POST">
+	
+		<label for="network"> Choose network </label>
+		<select class="form-control" name="network">
+			{% for file in files %}
+				<option value="{{ file }}">{{ file }}</option>
+			{% endfor %}
+		</select>
+		<br>
+		
+		<button type="submit" class="btn btn-dark btn-lg btn-block">Choose pipe</button>
+		
+	</form>
+	
+	<br>
+	
+	{{ net }} 
+	{{ node }} 
+	{{ sim_time }} 
+	{{ leak_hour }}
+	
+	{% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+		{% endwith %}
+	
+{% endblock content %}
