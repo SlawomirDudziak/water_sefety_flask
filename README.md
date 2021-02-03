@@ -1,4 +1,4 @@
-#water safety flask app
+# Water Safety Flask App
 Web App uses Python Flask, Bootstrap, some JS, jQuery and presents water supply network diagrams, results of simulating poison in water supply network. App is connected with sqlite database, currently some features such as adding an .inp model of network, running a simulation doesn't work, because of additional software needed.
 
 ## Requirements
